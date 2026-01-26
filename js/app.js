@@ -126,7 +126,8 @@
   // ========= Actividades Fase 5 =========
   const actState = (() => { try { return JSON.parse(localStorage.getItem(ACT_KEY) || "{}"); } catch { return {}; } })();
   function saveActs() { localStorage.setItem(ACT_KEY, JSON.stringify(actState)); }
-  function activitiesDone() { return actState.a1 === true && actState.a2 === true && actState.a3 === true; }
+  // En Fase 5 hay 2 integradoras interactivas (a1 y a2)
+  function activitiesDone() { return actState.a1 === true && actState.a2 === true; }
 
   // ========= UI =========
   function setBadge(id, text) {
@@ -370,8 +371,24 @@
       else submit.disabled = !unlockedToday || !canAttempt(phaseKey);
     }
 
-    if (lockMsg && phaseNum !== 5) {
-      if (!unlockedToday) lockMsg.textContent = "🔒 Test bloqueado. Introduce el código del docente para habilitar la corrección.";
+    // En Fase 5, además de la corrección del test, se bloquean las actividades interactivas hasta validar el código.
+    if (phaseNum === 5) {
+      const enabled = unlockedToday;
+      document.querySelectorAll("#p5Act1 button, #p5Act2 select, #p5Act1Check, #p5Act2Check").forEach(el => {
+        if ("disabled" in el) el.disabled = !enabled;
+      });
+
+      if (lockMsg) {
+        if (!unlockedToday) lockMsg.textContent = "🔒 Actividades y test bloqueados. Entrega en EVAGD y valida el código del docente.";
+        else if (!activitiesDone()) lockMsg.textContent = "ℹ️ Completa las 2 actividades integradoras para habilitar el test final.";
+        else if (!canAttempt("phase5")) lockMsg.textContent = `❌ Sin intentos disponibles (máximo ${MAX_ATTEMPTS}).`;
+        else lockMsg.textContent = "";
+      }
+      return;
+    }
+
+    if (lockMsg) {
+      if (!unlockedToday) lockMsg.textContent = "🔒 Test bloqueado. Entrega en EVAGD y valida el código del docente para habilitar la corrección.";
       else if (!canAttempt(phaseKey)) lockMsg.textContent = `❌ Sin intentos disponibles (máximo ${MAX_ATTEMPTS}).`;
       else lockMsg.textContent = "";
     }
@@ -456,11 +473,12 @@
     const mount = document.getElementById("p5Act1");
     if (!mount) return;
 
+    // Integradora 1: estructura de un documento formal (modelo)
     const correctOrder = [
-      "Asunto claro",
-      "Saludo + contexto",
-      "Acción solicitada + plazo",
-      "Cierre + firma"
+      "Encabezado (datos y fecha)",
+      "Asunto / referencia",
+      "Cuerpo (exposición + solicitud)",
+      "Despedida + firma + anexos"
     ];
 
     if (!actState.act1Items) {
@@ -511,10 +529,11 @@
     const mount = document.getElementById("p5Act2");
     if (!mount) return;
 
+    // Integradora 2: conceptos de soportes/canales
     const pairs = [
-      ["Asunto", "Resume el objetivo del mensaje de forma específica"],
-      ["CC", "Incluye a personas que deben estar informadas"],
-      ["CCO", "Oculta destinatarios cuando es necesario"]
+      ["Soporte físico", "Medio material (papel/impreso)"],
+      ["Soporte digital", "Archivo electrónico (PDF, DOCX, etc.)"],
+      ["Canal", "Vía por la que se transmite (correo, sede electrónica, mensajería, etc.)"]
     ];
 
     if (!actState.act2) {
@@ -557,59 +576,9 @@
     }
   }
 
-  function mountAct3() {
-    const mount = document.getElementById("p5Act3");
-    if (!mount) return;
-
-    const q = {
-      text: "Vas a pedir documentación por correo. ¿Cuál es la mejor redacción?",
-      options: [
-        "Mándame lo que falta ya.",
-        "Por favor, ¿podría enviarnos la documentación pendiente antes del viernes para completar el expediente? Gracias.",
-        "Necesito papeles. Urgente!!!",
-        "Si no lo envía, no se tramita."
-      ],
-      correct: 1
-    };
-
-    if (actState.act3Sel === undefined) actState.act3Sel = null;
-
-    mount.innerHTML = `
-      <div style="margin:8px 0; padding:12px; border:1px solid rgba(255,255,255,.10); border-radius:14px; background: rgba(0,0,0,.14);">
-        <p style="margin:0 0 10px 0;"><strong>${q.text}</strong></p>
-        ${q.options.map((opt, i) => `
-          <label style="display:block; margin:.45rem 0;">
-            <input type="radio" name="p5act3" value="${i}" ${String(actState.act3Sel) === String(i) ? "checked" : ""}>
-            ${opt}
-          </label>
-        `).join("")}
-      </div>
-    `;
-
-    mount.querySelectorAll('input[name="p5act3"]').forEach(r => {
-      r.addEventListener("change", () => {
-        actState.act3Sel = Number(r.value);
-        saveActs();
-        refreshUI();
-      });
-    });
-
-    const checkBtn = document.getElementById("p5Act3Check");
-    const msg = document.getElementById("p5Act3Msg");
-    if (checkBtn) {
-      checkBtn.addEventListener("click", () => {
-        const ok = Number(actState.act3Sel) === q.correct;
-        actState.a3 = ok;
-        saveActs();
-        if (msg) msg.textContent = ok ? "✅ Actividad 3 correcta." : "❌ No es la opción más profesional.";
-        refreshUI();
-      });
-    }
-  }
-
   mountAct1();
   mountAct2();
-  mountAct3();
+
 
   // ========= Arranque =========
   refreshUI();

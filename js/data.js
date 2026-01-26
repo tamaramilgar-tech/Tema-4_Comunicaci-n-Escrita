@@ -10,31 +10,36 @@ window.UNIT_NAME = "Tema 4 · Comunicación escrita";
  */
 
 window.phase1Bank = [
-  { q:"En un correo profesional, el asunto debe ser…", options:["Vago ('Hola')","Claro y específico","Con emoticonos en exceso","Muy largo y confuso"], answerIndex:1 },
-  { q:"Una buena práctica antes de enviar es…", options:["No releer","Revisar ortografía y destinatarios","Escribir en MAYÚSCULAS","Enviar sin adjuntar"], answerIndex:1 },
-  { q:"La firma profesional suele incluir…", options:["Apodos","Nombre y datos de contacto","Chistes","Opiniones personales"], answerIndex:1 },
+  { q:"Un mapa conceptual se caracteriza por…", options:["Listar ideas sin orden","Organizar conceptos de forma jerárquica y relacionada","Ser un texto en párrafos","Ser un resumen solo con definiciones"], answerIndex:1 },
+  { q:"En un mapa conceptual, los conectores sirven para…", options:["Decorar","Expresar la relación entre conceptos","Sustituir conceptos","Evitar ejemplos"], answerIndex:1 },
+  { q:"Para que el mapa sea útil, conviene…", options:["Incluir todo el tema sin selección","Usar conceptos clave y relaciones claras","Escribir frases muy largas","Evitar jerarquías"], answerIndex:1 },
+  { q:"Una buena práctica al entregarlo en EVAGD es…", options:["Enviar una foto borrosa","Asegurar legibilidad (foto/escaneo) y buen encuadre","Cortar partes","No poner nombre"], answerIndex:1 },
 ];
 
 window.phase2Bank = [
-  { q:"Estructura recomendada de un correo:", options:["Sin saludo","Saludo + contexto + acción + cierre","Solo adjunto","Todo en mayúsculas"], answerIndex:1 },
-  { q:"Uso correcto de CC:", options:["Copiar a todos","Solo a quienes deban estar informados","Nunca usar CC","Usar CC para presionar"], answerIndex:1 },
-  { q:"Con adjuntos, conviene…", options:["No mencionarlos","Mencionarlos y comprobar que están","Enviar sin revisar","Adjuntar sin nombre"], answerIndex:1 },
+  { q:"Un documento de comunicación interna se dirige principalmente a…", options:["Público general","Personal del centro/organización","Medios de comunicación","Administración pública"], answerIndex:1 },
+  { q:"En comunicación interna, es clave que el documento incluya…", options:["Opiniones personales","Datos, referencias y acciones claras","Emojis","Lenguaje ambiguo"], answerIndex:1 },
+  { q:"¿Qué elemento suele aparecer en un documento interno formal?", options:["Identificación/encabezado y fecha","Chistes","Memes","Acrónimos sin explicar"], answerIndex:0 },
+  { q:"Al marcar la estructura del documento, lo correcto es…", options:["Inventar apartados","Señalar partes (encabezado, cuerpo, firma/anexos si procede)","Eliminar el cuerpo","Ocultar la fecha"], answerIndex:1 },
 ];
 
 window.phase3Bank = [
-  { q:"En documentos, la claridad mejora cuando…", options:["Mezclas temas","Usas frases cortas y ordenadas","Omites datos clave","Usas jerga innecesaria"], answerIndex:1 },
-  { q:"Un registro interno debe priorizar…", options:["Opiniones","Datos verificables y referencias","Rumores","Emojis"], answerIndex:1 },
-  { q:"Si hay datos sensibles, lo correcto es…", options:["Pegarlos en cualquier chat","Usar canal autorizado y verificar destinatario","Enviarlos a un grupo","Publicarlos"], answerIndex:1 },
+  { q:"Un documento de comunicación externa se orienta a…", options:["Solo al equipo directivo","Personas/entidades fuera del centro (familias, empresas, proveedores)","Solo a alumnado","Nadie en concreto"], answerIndex:1 },
+  { q:"En comunicación externa, el tono debe ser…", options:["Informal siempre","Adecuado al destinatario, claro y respetuoso","Irónico","Excesivamente técnico sin necesidad"], answerIndex:1 },
+  { q:"¿Qué es importante en la estructura de una carta/comunicado externo?", options:["No poner asunto","Identificar destinatario, asunto/objetivo y cierre/firma","Escribir todo en mayúsculas","No indicar fecha"], answerIndex:1 },
+  { q:"Al elaborar el documento, también debes…", options:["Evitar justificar su uso","Definir su uso y finalidad en el contexto del centro","No relacionarlo con el tema","Omitir conceptos asociados"], answerIndex:1 },
 ];
 
 window.phase4Bank = [
-  { q:"En mensajería interna, un buen mensaje incluye…", options:["Solo 'llámame'","Contexto + acción + referencia + plazo","Chistes","Mayúsculas"], answerIndex:1 },
-  { q:"La urgencia debe…", options:["No indicarse","Indicarse con plazo realista","Expresarse con gritos","Darse por supuesta"], answerIndex:1 },
-  { q:"Al reenviar un correo, conviene…", options:["No explicar nada","Añadir contexto y qué se espera","Cambiar asunto sin motivo","Borrar historial siempre"], answerIndex:1 },
+  { q:"En un documento dirigido a la Administración pública, suele ser imprescindible…", options:["No identificarse","Identificación del solicitante y objeto de la solicitud","Usar emoticonos","No poner fecha"], answerIndex:1 },
+  { q:"La diferencia básica entre soporte y canal es que…", options:["Son lo mismo","El soporte es el formato/medio (papel/digital) y el canal es la vía de envío","El canal es el archivo y el soporte es el correo","No hay diferencia"], answerIndex:1 },
+  { q:"Un ejemplo de canal de transmisión es…", options:["PDF","Papel","Sede electrónica / correo / registro","Grapa"], answerIndex:2 },
+  { q:"Al comparar soportes, conviene considerar…", options:["Solo el color","Seguridad, accesibilidad, conservación y trazabilidad","Solo el tamaño","Solo el coste"], answerIndex:1 },
 ];
 
 window.phase5Bank = [
-  { q:"Un cierre profesional de correo:", options:["Bye","Un saludo / Quedo a su disposición","Nos vemos","Lo dicho"], answerIndex:1 },
-  { q:"Evita en comunicación escrita:", options:["Listas claras","MAYÚSCULAS sostenidas","Puntos clave","Cierre cordial"], answerIndex:1 },
-  { q:"Si no puedes cumplir un plazo, lo profesional es…", options:["No contestar","Proponer alternativa y nuevo plazo realista","Prometer igual","Culpar a otro"], answerIndex:1 },
+  { q:"La normalización de impresos y documentos busca…", options:["Que cada uno use su formato","Unificar formato y estructura para facilitar comprensión y tramitación","Evitar firmas","Eliminar fechas"], answerIndex:1 },
+  { q:"En gestión documental, una buena práctica es…", options:["Guardar todo sin nombrar","Nombrar archivos con criterio y controlar versiones","Borrar anexos","Usar carpetas al azar"], answerIndex:1 },
+  { q:"Un soporte digital habitual para entregar documentación es…", options:["Servilleta","PDF","Pizarra","Sticker"], answerIndex:1 },
+  { q:"La trazabilidad de un documento mejora si…", options:["No se registra nada","Se registra entrada/salida y se conserva evidencia","Se envía por cualquier chat","No se pone referencia"], answerIndex:1 },
 ];
