@@ -1,784 +1,123 @@
-/* =========================
-   BANCO DE PREGUNTAS TEMA 4
-   Definitivo – 15 preguntas por fase
-   ========================= */
+// js/data.js
+// Datos del tema y bancos de preguntas (SOLO DATOS, sin lógica).
+window.UNIT_NAME = "Tema 4 · Comunicación escrita";
 
-/* ---------- FASE 1 ----------
-   Mapa conceptual + comunicación escrita
--------------------------------- */
-const phase1Bank = [
-  {
-    q: "Un mapa conceptual se caracteriza principalmente por:",
-    a: [
-      "Presentar información en forma de texto continuo",
-      "Organizar conceptos de forma jerárquica y relacionada",
-      "Recoger opiniones personales sin estructura",
-      "Utilizar solo imágenes sin texto"
-    ],
-    correct: 1
-  },
-  {
-    q: "En un mapa conceptual, los conectores sirven para:",
-    a: [
-      "Decorar el documento",
-      "Unir conceptos indicando la relación entre ellos",
-      "Separar ideas sin relación",
-      "Reducir el número de conceptos"
-    ],
-    correct: 1
-  },
-  {
-    q: "Para que un mapa conceptual sea útil debe:",
-    a: [
-      "Contener la mayor cantidad de texto posible",
-      "Presentar conceptos sin jerarquía",
-      "Mostrar claridad, orden y relaciones lógicas",
-      "Ser elaborado únicamente con frases largas"
-    ],
-    correct: 2
-  },
-  {
-    q: "Una característica propia de la comunicación escrita es:",
-    a: [
-      "La inmediatez absoluta",
-      "La ausencia de planificación",
-      "La permanencia del mensaje",
-      "La improvisación constante"
-    ],
-    correct: 2
-  },
-  {
-    q: "Antes de redactar un documento escrito es fundamental:",
-    a: [
-      "Definir el objetivo y el destinatario",
-      "Elegir primero el soporte",
-      "Redactar sin esquema previo",
-      "Pensar solo en el contenido final"
-    ],
-    correct: 0
-  },
-  {
-    q: "Uno de los principios básicos de la redacción profesional es:",
-    a: [
-      "Extender el texto para mayor formalidad",
-      "Priorizar claridad, corrección y concisión",
-      "Utilizar tecnicismos siempre",
-      "Evitar la revisión final"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un error frecuente en la comunicación escrita es:",
-    a: [
-      "Planificar el contenido",
-      "Usar párrafos estructurados",
-      "Revisar la ortografía",
-      "Redactar textos extensos sin estructura"
-    ],
-    correct: 3
-  },
-  {
-    q: "La comunicación escrita permite:",
-    a: [
-      "Modificar el mensaje sin dejar constancia",
-      "Registrar y consultar la información posteriormente",
-      "Eliminar la necesidad de normas",
-      "Evitar responsabilidades"
-    ],
-    correct: 1
-  },
-  {
-    q: "La claridad en un texto se consigue principalmente mediante:",
-    a: [
-      "Frases largas y complejas",
-      "Uso correcto del léxico y la sintaxis",
-      "Abundancia de ideas secundarias",
-      "Ausencia de signos de puntuación"
-    ],
-    correct: 1
-  },
-  {
-    q: "En un texto escrito profesional se debe evitar:",
-    a: [
-      "Lenguaje preciso",
-      "Orden lógico de ideas",
-      "Ambigüedades y contradicciones",
-      "Corrección ortográfica"
-    ],
-    correct: 2
-  },
-  {
-    q: "La planificación previa de un texto sirve para:",
-    a: [
-      "Reducir el tiempo de lectura",
-      "Aumentar la improvisación",
-      "Organizar ideas y estructura",
-      "Eliminar la revisión final"
-    ],
-    correct: 2
-  },
-  {
-    q: "El uso adecuado de la puntuación permite:",
-    a: [
-      "Dar mayor extensión al texto",
-      "Facilitar la comprensión del mensaje",
-      "Eliminar conectores",
-      "Reducir la formalidad"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un texto bien redactado debe ser:",
-    a: [
-      "Subjetivo y creativo",
-      "Claro, coherente y adecuado al contexto",
-      "Extenso y detallado en exceso",
-      "Informal en cualquier situación"
-    ],
-    correct: 1
-  },
-  {
-    q: "La coherencia textual se refiere a:",
-    a: [
-      "La correcta ortografía",
-      "La relación lógica entre las ideas",
-      "El uso de mayúsculas",
-      "La longitud del texto"
-    ],
-    correct: 1
-  },
-  {
-    q: "La comunicación escrita en el ámbito profesional exige:",
-    a: [
-      "Improvisación",
-      "Corrección y responsabilidad",
-      "Uso exclusivo de lenguaje coloquial",
-      "Ausencia de normas"
-    ],
-    correct: 1
-  }
+/**
+ * Formato:
+ * { q: "Texto", options: ["A","B","C","D"], answerIndex: 0..3 }
+ *
+ * La app (js/app.js):
+ * - Muestra 15 preguntas por fase.
+ * - Baraja preguntas y opciones en cada intento.
+ */
+
+// =========================
+// FASE 1 — Mapa conceptual + Comunicación escrita (características, pasos y principios)
+// =========================
+window.phase1Bank = [
+  // 1–3: mapa conceptual
+  { q: "En un mapa conceptual, lo más importante es:", options: ["Escribir párrafos largos sin títulos","Organizar conceptos de forma jerárquica y relacionada","Usar solo dibujos sin texto","Reunir ideas sin conectores"], answerIndex: 1 },
+  { q: "La función de los conectores en un mapa conceptual es:", options: ["Decorar el mapa","Indicar la relación entre conceptos mediante palabras enlace","Sustituir conceptos por frases extensas","Eliminar la jerarquía"], answerIndex: 1 },
+  { q: "Para que un mapa conceptual sea claro conviene:", options: ["Incluir conceptos clave, jerarquía y relaciones lógicas","Copiar el tema literalmente","Evitar enlaces entre ideas","Dar la misma importancia a todo"], answerIndex: 0 },
+
+  // comunicación escrita
+  { q: "Una característica propia de la comunicación escrita es que:", options: ["No deja constancia","Permite conservar y consultar la información","Siempre es más rápida que la oral","No requiere planificación"], answerIndex: 1 },
+  { q: "Antes de redactar, el primer paso recomendable es:", options: ["Definir objetivo, destinatario y mensaje","Escribir directamente sin planificar","Elegir tipografía y colores antes del contenido","Firmar el documento y después redactar"], answerIndex: 0 },
+  { q: "Un principio fundamental de la redacción empresarial es:", options: ["Extender el texto para sonar más formal","Priorizar claridad, concisión y corrección","Usar tecnicismos siempre","Evitar revisar para ahorrar tiempo"], answerIndex: 1 },
+  { q: "La coherencia en un texto significa:", options: ["Que las ideas se relacionan lógicamente","Que todo está en mayúsculas","Que se usan muchas abreviaturas","Que el texto es muy largo"], answerIndex: 0 },
+  { q: "La cohesión de un texto se consigue mediante:", options: ["Conectores, referencias y puntuación adecuada","Frases muy largas sin signos","Eliminar puntos y comas","Cambios constantes de tema"], answerIndex: 0 },
+  { q: "La adecuación en un escrito implica:", options: ["Usar el mismo registro siempre","Adaptar lenguaje al destinatario y contexto","Evitar indicar el propósito","Escribir siempre informal"], answerIndex: 1 },
+  { q: "Un texto profesional claro suele tener:", options: ["Párrafos interminables","Estructura y párrafos breves con ideas completas","Ausencia de títulos","Exceso de información irrelevante"], answerIndex: 1 },
+  { q: "La revisión final de un documento sirve para:", options: ["Comprobar ortografía, coherencia y datos","Añadir informalidad","Evitar que se entienda","Sustituir la planificación"], answerIndex: 0 },
+  { q: "En redacción profesional, la objetividad significa:", options: ["Centrarse en hechos y evitar valoraciones innecesarias","Añadir opiniones para convencer","Usar humor en documentos","Usar coloquialismos"], answerIndex: 0 },
+  { q: "Un error que perjudica la comprensión es:", options: ["Usar conectores adecuados","Separar en apartados","Emplear puntuación correcta","Incluir ambigüedades y frases confusas"], answerIndex: 3 },
+  { q: "La comunicación escrita profesional exige:", options: ["Improvisación","Corrección lingüística y responsabilidad","Evitar normas de estilo","No indicar destinatario"], answerIndex: 1 },
+  { q: "Un documento escrito eficaz suele responder a:", options: ["Qué se pide, a quién va dirigido y para cuándo","Qué música se oye al redactar","Qué temas evitar siempre","Qué frases largas incluir"], answerIndex: 0 }
 ];
 
-/* ---------- FASE 2 ----------
-   Comunicación interna
--------------------------------- */
-const phase2Bank = [
-  {
-    q: "La comunicación interna en un centro educativo tiene como finalidad:",
-    a: [
-      "Informar solo a agentes externos",
-      "Facilitar la coordinación y el funcionamiento interno",
-      "Difundir publicidad",
-      "Sustituir la comunicación oral"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un documento de comunicación interna debe caracterizarse por:",
-    a: [
-      "Lenguaje ambiguo",
-      "Claridad y precisión",
-      "Ausencia de estructura",
-      "Uso informal constante"
-    ],
-    correct: 1
-  },
-  {
-    q: "Entre los documentos internos más habituales se encuentra:",
-    a: [
-      "La carta comercial",
-      "El acta",
-      "El folleto publicitario",
-      "El anuncio externo"
-    ],
-    correct: 1
-  },
-  {
-    q: "La estructura básica de un documento interno incluye:",
-    a: [
-      "Solo el cuerpo del texto",
-      "Encabezado, cuerpo y cierre",
-      "Imágenes y anexos únicamente",
-      "Título y firma exclusivamente"
-    ],
-    correct: 1
-  },
-  {
-    q: "El encabezado de un documento interno suele contener:",
-    a: [
-      "Opiniones personales",
-      "Datos de identificación y asunto",
-      "Publicidad institucional",
-      "Conclusiones finales"
-    ],
-    correct: 1
-  },
-  {
-    q: "La finalidad principal de una circular interna es:",
-    a: [
-      "Comunicar información a un grupo amplio",
-      "Solicitar información a la Administración",
-      "Establecer contratos",
-      "Difundir noticias externas"
-    ],
-    correct: 0
-  },
-  {
-    q: "En comunicación interna es importante:",
-    a: [
-      "Evitar la claridad",
-      "Indicar responsables y plazos",
-      "Eliminar la fecha",
-      "Usar un lenguaje ambiguo"
-    ],
-    correct: 1
-  },
-  {
-    q: "El tono de los documentos internos debe ser:",
-    a: [
-      "Excesivamente informal",
-      "Adecuado al contexto profesional",
-      "Publicitario",
-      "Coloquial siempre"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un acta tiene como función:",
-    a: [
-      "Informar a familias",
-      "Dejar constancia escrita de lo tratado en una reunión",
-      "Solicitar recursos",
-      "Comunicar decisiones externas"
-    ],
-    correct: 1
-  },
-  {
-    q: "La correcta identificación del destinatario permite:",
-    a: [
-      "Evitar responsabilidades",
-      "Adecuar el contenido del documento",
-      "Eliminar la estructura",
-      "Reducir el formalismo"
-    ],
-    correct: 1
-  },
-  {
-    q: "En documentos internos, el uso de viñetas favorece:",
-    a: [
-      "La extensión del texto",
-      "La claridad y organización",
-      "La informalidad",
-      "La ambigüedad"
-    ],
-    correct: 1
-  },
-  {
-    q: "La fecha en un documento interno sirve para:",
-    a: [
-      "Decoración",
-      "Control y referencia temporal",
-      "Reducir formalidad",
-      "Eliminar seguimiento"
-    ],
-    correct: 1
-  },
-  {
-    q: "El cuerpo del documento recoge:",
-    a: [
-      "Datos del remitente",
-      "La información principal",
-      "La firma",
-      "Los anexos"
-    ],
-    correct: 1
-  },
-  {
-    q: "Una buena comunicación interna evita:",
-    a: [
-      "La coordinación",
-      "La duplicidad de tareas",
-      "La planificación",
-      "La claridad"
-    ],
-    correct: 1
-  },
-  {
-    q: "Los documentos internos deben archivarse para:",
-    a: [
-      "Eliminar trazabilidad",
-      "Facilitar consultas futuras",
-      "Reducir transparencia",
-      "Evitar responsabilidades"
-    ],
-    correct: 1
-  }
+// =========================
+// FASE 2 — Comunicación interna (documento interno + estructura + requisitos formales + tratamientos)
+// =========================
+window.phase2Bank = [
+  { q: "La comunicación interna en un centro educativo se dirige principalmente a:", options: ["Familias y proveedores","Personal del centro (equipos, departamentos, administración)","Medios de comunicación","Administración pública exclusivamente"], answerIndex: 1 },
+  { q: "Un objetivo clave de la comunicación interna es:", options: ["Promocionar el centro al exterior","Coordinar tareas, información y funcionamiento","Sustituir toda comunicación oral","Evitar registro documental"], answerIndex: 1 },
+  { q: "Un ejemplo típico de documento de comunicación interna es:", options: ["Acta de reunión","Folleto al público","Nota de prensa","Anuncio publicitario"], answerIndex: 0 },
+  { q: "Una estructura formal habitual en documentos internos incluye:", options: ["Encabezado (datos/asunto), cuerpo y cierre","Solo cuerpo del texto","Solo firma y sello","Solo anexos"], answerIndex: 0 },
+  { q: "El apartado “Asunto” se utiliza para:", options: ["Añadir datos irrelevantes","Anticipar el contenido y facilitar la clasificación","Sustituir el cuerpo del documento","Evitar la lectura"], answerIndex: 1 },
+  { q: "En un acta, un elemento imprescindible es:", options: ["Lista de asistentes y acuerdos adoptados","Publicidad del centro","Opiniones personales del redactor","Imágenes decorativas"], answerIndex: 0 },
+  { q: "Para mejorar la claridad en documentos internos conviene:", options: ["Frases muy extensas sin puntos","Apartados, viñetas y párrafos breves","Eliminar títulos y subtítulos","Evitar enumeraciones"], answerIndex: 1 },
+  { q: "Un requisito formal recomendable es:", options: ["No indicar fecha","Identificar remitente/destinatario cuando proceda","Omitir el asunto siempre","Evitar firmas"], answerIndex: 1 },
+  { q: "Un tratamiento formal correcto en un escrito interno puede ser:", options: ["Hola tío/tía","Estimado/a Sr./Sra. + apellido (según el caso)","Qué pasa","Ey"], answerIndex: 1 },
+  { q: "Una norma básica de puntuación para claridad es:", options: ["No usar comas nunca","Separar ideas completas con punto y aparte cuando cambia el tema","Sustituir puntos por emoticonos","Evitar dos puntos en enumeraciones"], answerIndex: 1 },
+  { q: "Un error frecuente en documentos internos es:", options: ["No especificar acción/responsable/plazo","Usar asunto claro","Revisar datos antes de enviar","Mantener estructura fija"], answerIndex: 0 },
+  { q: "Una buena práctica de redacción es:", options: ["Mezclar varios asuntos sin separarlos","Ordenar la información de lo general a lo específico","Eliminar el contexto","Escribir solo en mayúsculas"], answerIndex: 1 },
+  { q: "La ortografía correcta en documentos internos es importante porque:", options: ["No afecta a la comprensión","Evita errores de interpretación y mejora la profesionalidad","Solo importa en documentos externos","Solo importa en documentos oficiales"], answerIndex: 1 },
+  { q: "En un documento interno, el cierre suele incluir:", options: ["Conclusión/acción requerida y firma o identificación","Inicio del documento","Listado de asistentes","Portada con imágenes"], answerIndex: 0 },
+  { q: "Al elaborar un documento interno, se debe identificar y marcar:", options: ["Solo el título","Estructura correcta y conceptos asociados","Solo los colores","Solo el número de páginas"], answerIndex: 1 }
 ];
 
-/* ---------- FASE 3 ----------
-   Comunicación externa
--------------------------------- */
-const phase3Bank = [
-  {
-    q: "La comunicación externa se dirige principalmente a:",
-    a: [
-      "Personal interno",
-      "Agentes externos al centro",
-      "Solo al equipo directivo",
-      "Únicamente al alumnado"
-    ],
-    correct: 1
-  },
-  {
-    q: "En un documento externo es fundamental:",
-    a: [
-      "Cuidar la imagen institucional",
-      "Usar lenguaje coloquial",
-      "Evitar la firma",
-      "Reducir la estructura"
-    ],
-    correct: 0
-  },
-  {
-    q: "El tono en la comunicación externa debe ser:",
-    a: [
-      "Improvisado",
-      "Adecuado al destinatario",
-      "Siempre informal",
-      "Excesivamente técnico"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un documento externo suele incluir:",
-    a: [
-      "Solo cuerpo del texto",
-      "Identificación del destinatario",
-      "Opiniones personales",
-      "Lenguaje ambiguo"
-    ],
-    correct: 1
-  },
-  {
-    q: "La ortografía en documentos externos es importante porque:",
-    a: [
-      "No influye en la imagen",
-      "Refleja profesionalidad",
-      "Reduce el contenido",
-      "Aumenta la informalidad"
-    ],
-    correct: 1
-  },
-  {
-    q: "El asunto en un documento externo sirve para:",
-    a: [
-      "Decorar el texto",
-      "Anticipar el contenido",
-      "Alargar el documento",
-      "Evitar la lectura"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un error habitual en comunicación externa es:",
-    a: [
-      "Adecuar el registro",
-      "Cuidar la presentación",
-      "Usar tecnicismos innecesarios",
-      "Revisar el texto"
-    ],
-    correct: 2
-  },
-  {
-    q: "El destinatario en una comunicación externa debe:",
-    a: [
-      "Quedar implícito",
-      "Estar claramente identificado",
-      "Omitirse siempre",
-      "Ser genérico"
-    ],
-    correct: 1
-  },
-  {
-    q: "La despedida en un documento externo debe ser:",
-    a: [
-      "Inexistente",
-      "Adecuada al grado de formalidad",
-      "Coloquial",
-      "Extensa"
-    ],
-    correct: 1
-  },
-  {
-    q: "La firma en un documento externo indica:",
-    a: [
-      "Publicidad",
-      "Responsabilidad del remitente",
-      "Extensión del texto",
-      "Confidencialidad automática"
-    ],
-    correct: 1
-  },
-  {
-    q: "La claridad en comunicación externa permite:",
-    a: [
-      "Confundir al destinatario",
-      "Transmitir el mensaje correctamente",
-      "Reducir profesionalidad",
-      "Eliminar normas"
-    ],
-    correct: 1
-  },
-  {
-    q: "El uso correcto de tratamientos demuestra:",
-    a: [
-      "Desinterés",
-      "Respeto institucional",
-      "Informalidad",
-      "Improvisación"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un documento externo mal redactado puede provocar:",
-    a: [
-      "Mejor imagen",
-      "Malentendidos",
-      "Mayor claridad",
-      "Eficacia comunicativa"
-    ],
-    correct: 1
-  },
-  {
-    q: "La estructura facilita:",
-    a: [
-      "La confusión",
-      "La comprensión del mensaje",
-      "La informalidad",
-      "La ambigüedad"
-    ],
-    correct: 1
-  },
-  {
-    q: "La comunicación externa representa:",
-    a: [
-      "Solo al redactor",
-      "La imagen del centro",
-      "Al alumnado exclusivamente",
-      "A la Administración"
-    ],
-    correct: 1
-  }
+// =========================
+// FASE 3 — Comunicación externa (documento externo + tono/registro + estructura)
+// =========================
+window.phase3Bank = [
+  { q: "La comunicación externa de un centro educativo se dirige a:", options: ["Solo al equipo directivo","Personas/entidades fuera del centro (familias, empresas, etc.)","Únicamente al alumnado","Solo al personal docente"], answerIndex: 1 },
+  { q: "En un documento externo, el tono debe ser:", options: ["Improvisado y coloquial","Adecuado al destinatario y a la imagen institucional","Siempre informal para ser cercano","Excesivamente técnico sin necesidad"], answerIndex: 1 },
+  { q: "Un elemento formal habitual en un documento externo es:", options: ["Asunto y datos del destinatario","Contenido ambiguo","Opiniones personales del redactor","Mensajes sin estructura"], answerIndex: 0 },
+  { q: "Una finalidad típica de una comunicación externa es:", options: ["Coordinar tareas internas","Informar o solicitar algo a familias/entidades externas","Registrar acuerdos internos","Sustituir actas"], answerIndex: 1 },
+  { q: "La ortografía y la sintaxis en documentos externos son importantes porque:", options: ["No influyen en la imagen","Transmiten profesionalidad y evitan malentendidos","Solo importan con anexos","Solo importan en textos largos"], answerIndex: 1 },
+  { q: "El saludo de un documento externo debe:", options: ["Ser acorde al grado de formalidad","Omitirse siempre","Ser siempre “Hola”","Ser igual para cualquier destinatario"], answerIndex: 0 },
+  { q: "Un error habitual en comunicación externa es:", options: ["Identificar destinatario y asunto","Usar tecnicismos innecesarios","Revisar el documento","Mantener tono institucional"], answerIndex: 1 },
+  { q: "Un cierre adecuado suele incluir:", options: ["Despedida formal, firma y datos de contacto","Solo un icono","Una posdata sin relación","Un comentario personal"], answerIndex: 0 },
+  { q: "Identificar al remitente sirve para:", options: ["Evitar responsabilidades","Aportar credibilidad y facilitar respuesta/seguimiento","Hacer el documento más largo","Sustituir el asunto"], answerIndex: 1 },
+  { q: "La puntuación adecuada ayuda a:", options: ["Complicar el texto","Estructurar ideas y mejorar comprensión","Eliminar conectores","Reducir formalidad"], answerIndex: 1 },
+  { q: "Una norma de tratamiento adecuada en documento externo es:", options: ["Tutear siempre","Usar “Sr./Sra.” cuando proceda y mantener cortesía","Usar apodos","Evitar tratamientos"], answerIndex: 1 },
+  { q: "Un requisito formal importante es:", options: ["No incluir fecha","Cuidar la presentación (membrete/encabezado si procede)","Eliminar el asunto","No incluir firma"], answerIndex: 1 },
+  { q: "La adecuación en comunicación externa implica:", options: ["Usar el mismo estilo siempre","Adaptar registro y vocabulario al destinatario","Evitar indicar propósito","Escribir con frases hechas"], answerIndex: 1 },
+  { q: "Si el documento externo incluye anexos, conviene:", options: ["No mencionarlos","Indicarlos claramente y referenciarlos en el texto","Adjuntarlos sin nombre","Adjuntar documentos no relacionados"], answerIndex: 1 },
+  { q: "En la actividad de fase 3, debes identificar y marcar:", options: ["Solo la extensión","Estructura correcta y conceptos asociados (uso, destinatario, tono…)","Solo la tipografía","Solo las imágenes"], answerIndex: 1 }
 ];
 
-/* ---------- FASE 4 ----------
-   Administración pública + soportes
--------------------------------- */
-const phase4Bank = [
-  {
-    q: "Un documento dirigido a la Administración pública debe:",
-    a: [
-      "Carecer de estructura",
-      "Ser claro, formal y preciso",
-      "Usar lenguaje coloquial",
-      "Omitir identificación"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un escrito administrativo debe incluir:",
-    a: [
-      "Opiniones personales",
-      "Identificación del solicitante",
-      "Publicidad",
-      "Lenguaje ambiguo"
-    ],
-    correct: 1
-  },
-  {
-    q: "El objeto del escrito administrativo indica:",
-    a: [
-      "El destinatario",
-      "La finalidad del documento",
-      "La firma",
-      "La fecha"
-    ],
-    correct: 1
-  },
-  {
-    q: "La diferencia entre soporte y canal es que:",
-    a: [
-      "Son lo mismo",
-      "El soporte es el formato y el canal la vía de envío",
-      "El canal es el formato",
-      "No existe diferencia"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un canal habitual con la Administración es:",
-    a: [
-      "Mensajería informal",
-      "Sede electrónica",
-      "Redes sociales",
-      "Comunicación verbal"
-    ],
-    correct: 1
-  },
-  {
-    q: "El registro de entrada sirve para:",
-    a: [
-      "Eliminar documentos",
-      "Dejar constancia de recepción",
-      "Reducir trazabilidad",
-      "Evitar seguimiento"
-    ],
-    correct: 1
-  },
-  {
-    q: "El lenguaje administrativo debe ser:",
-    a: [
-      "Subjetivo",
-      "Formal y objetivo",
-      "Coloquial",
-      "Creativo"
-    ],
-    correct: 1
-  },
-  {
-    q: "La fecha en documentos administrativos permite:",
-    a: [
-      "Controlar plazos",
-      "Eliminar responsabilidad",
-      "Reducir formalidad",
-      "Evitar archivo"
-    ],
-    correct: 0
-  },
-  {
-    q: "El uso correcto de modelos normalizados facilita:",
-    a: [
-      "Errores",
-      "La tramitación",
-      "La informalidad",
-      "La ambigüedad"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un escrito administrativo mal redactado puede:",
-    a: [
-      "Acelerar trámites",
-      "Retrasar la gestión",
-      "Mejorar comprensión",
-      "Evitar errores"
-    ],
-    correct: 1
-  },
-  {
-    q: "La identificación del órgano destinatario es:",
-    a: [
-      "Opcional",
-      "Obligatoria",
-      "Decorativa",
-      "Irrelevante"
-    ],
-    correct: 1
-  },
-  {
-    q: "Los anexos sirven para:",
-    a: [
-      "Ampliar información relevante",
-      "Decorar el documento",
-      "Reducir claridad",
-      "Sustituir el texto"
-    ],
-    correct: 0
-  },
-  {
-    q: "El soporte papel se caracteriza por:",
-    a: [
-      "No dejar constancia",
-      "Ser tradicional y tangible",
-      "No poder archivarse",
-      "Carecer de valor legal"
-    ],
-    correct: 1
-  },
-  {
-    q: "El soporte digital permite:",
-    a: [
-      "Mayor rapidez y almacenamiento",
-      "Menor trazabilidad",
-      "Pérdida de información",
-      "Ausencia de control"
-    ],
-    correct: 0
-  },
-  {
-    q: "La correcta elección del canal depende de:",
-    a: [
-      "La improvisación",
-      "El destinatario y el contexto",
-      "La extensión",
-      "La informalidad"
-    ],
-    correct: 1
-  }
+// =========================
+// FASE 4 — Administración pública + soportes y canales
+// =========================
+window.phase4Bank = [
+  { q: "En un documento dirigido a la Administración pública, el lenguaje debe ser:", options: ["Coloquial","Formal, preciso y objetivo","Creativo y publicitario","Ambiguo"], answerIndex: 1 },
+  { q: "Un elemento imprescindible en un escrito a la Administración es:", options: ["Identificación del interesado y solicitud clara","Chistes para mejorar la lectura","Imágenes decorativas","Opiniones personales extensas"], answerIndex: 0 },
+  { q: "La solicitud en un escrito administrativo debe:", options: ["Quedar implícita","Expresarse de forma concreta y sin ambigüedad","Redactarse informal","Evitarse para no alargar"], answerIndex: 1 },
+  { q: "Una estructura típica incluye:", options: ["Identificación, exposición, solicitud y firma","Solo saludo y despedida","Solo anexos","Texto libre sin apartados"], answerIndex: 0 },
+  { q: "Diferencia principal entre soporte y canal:", options: ["Soporte=vía de envío; canal=formato","Soporte=formato (papel/digital); canal=vía de transmisión (correo/sede electrónica)","No hay diferencia","Canal=lugar de archivo; soporte=destinatario"], answerIndex: 1 },
+  { q: "Un canal oficial habitual es:", options: ["Mensajería personal","Sede electrónica/registro oficial","Red social del centro","Llamada informal"], answerIndex: 1 },
+  { q: "La fecha en documento administrativo es importante porque:", options: ["Es decorativa","Afecta a plazos y registro","Sustituye al asunto","Evita anexos"], answerIndex: 1 },
+  { q: "El registro de entrada/salida sirve para:", options: ["Dejar constancia y trazabilidad","Eliminar documentos antiguos","Sustituir la firma","Reducir controles"], answerIndex: 0 },
+  { q: "Un requisito formal recomendable es:", options: ["Omitir órgano destinatario","Identificar órgano/unidad destinataria cuando proceda","No incluir datos del interesado","No firmar"], answerIndex: 1 },
+  { q: "Una ventaja del soporte digital es:", options: ["No se puede archivar","Facilita almacenamiento, búsqueda y envío","Impide trazabilidad","No admite firma"], answerIndex: 1 },
+  { q: "Una característica del soporte papel es:", options: ["Es intangible","Es tangible y tradicional, con archivo físico","No deja constancia","No se puede registrar"], answerIndex: 1 },
+  { q: "Al elegir canal de envío conviene:", options: ["Elegir siempre el mismo","Ajustarlo a destinatario, urgencia y formalidad","Usar canales informales para documentos oficiales","Evitar registro"], answerIndex: 1 },
+  { q: "Los modelos normalizados facilitan:", options: ["Errores","Tramitación y comprensión","Ambigüedad","Ausencia de control"], answerIndex: 1 },
+  { q: "Un error que puede retrasar un trámite es:", options: ["Identificar al interesado","Redactar solicitud ambigua o incompleta","Incluir anexos relevantes","Indicar órgano destinatario"], answerIndex: 1 },
+  { q: "En la actividad sobre soportes y canales debes explicar:", options: ["Solo definición de soporte","Diferencias soporte/canal y lo más característico de cada uno","Solo ejemplos sin explicación","Solo un canal digital"], answerIndex: 1 }
 ];
 
-/* ---------- FASE 5 ----------
-   Globalizadora + contenido propio
--------------------------------- */
-const phase5Bank = [
-  {
-    q: "La normalización documental busca:",
-    a: [
-      "Diversidad de formatos",
-      "Uniformidad y eficiencia",
-      "Eliminar control",
-      "Reducir claridad"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un beneficio de la normalización es:",
-    a: [
-      "Mayor confusión",
-      "Facilitar la comprensión y gestión",
-      "Eliminar estructura",
-      "Reducir responsabilidad"
-    ],
-    correct: 1
-  },
-  {
-    q: "El soporte digital más adecuado para envío formal es:",
-    a: [
-      "Documento editable sin control",
-      "PDF",
-      "Imagen sin texto",
-      "Mensaje instantáneo"
-    ],
-    correct: 1
-  },
-  {
-    q: "La gestión documental consiste en:",
-    a: [
-      "Eliminar archivos",
-      "Organizar, conservar y recuperar documentos",
-      "Guardar sin criterio",
-      "Reducir trazabilidad"
-    ],
-    correct: 1
-  },
-  {
-    q: "El control de versiones permite:",
-    a: [
-      "Perder cambios",
-      "Identificar modificaciones",
-      "Eliminar archivos",
-      "Evitar seguimiento"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un nombre correcto de archivo facilita:",
-    a: [
-      "La localización posterior",
-      "La confusión",
-      "La duplicidad",
-      "La pérdida"
-    ],
-    correct: 0
-  },
-  {
-    q: "Los metadatos permiten:",
-    a: [
-      "Decorar documentos",
-      "Identificar información clave",
-      "Eliminar estructura",
-      "Reducir control"
-    ],
-    correct: 1
-  },
-  {
-    q: "El archivo digital debe organizarse:",
-    a: [
-      "Sin criterio",
-      "Por carpetas lógicas y coherentes",
-      "Aleatoriamente",
-      "Por tamaño"
-    ],
-    correct: 1
-  },
-  {
-    q: "La seguridad documental implica:",
-    a: [
-      "Acceso libre siempre",
-      "Protección y control de acceso",
-      "Ausencia de copias",
-      "Eliminación de normas"
-    ],
-    correct: 1
-  },
-  {
-    q: "Un documento bien normalizado:",
-    a: [
-      "Dificulta la gestión",
-      "Facilita el trabajo administrativo",
-      "Reduce claridad",
-      "Elimina estructura"
-    ],
-    correct: 1
-  },
-  {
-    q: "La trazabilidad documental permite:",
-    a: [
-      "Seguir el ciclo del documento",
-      "Eliminar registros",
-      "Reducir transparencia",
-      "Evitar control"
-    ],
-    correct: 0
-  },
-  {
-    q: "Un error en gestión documental es:",
-    a: [
-      "Nombrar archivos correctamente",
-      "No realizar copias de seguridad",
-      "Clasificar por carpetas",
-      "Controlar versiones"
-    ],
-    correct: 1
-  },
-  {
-    q: "En un contexto globalizador es importante:",
-    a: [
-      "Separar contenidos",
-      "Relacionar comunicación, soportes y gestión",
-      "Eliminar normas",
-      "Reducir coherencia"
-    ],
-    correct: 1
-  },
-  {
-    q: "La comunicación escrita eficaz requiere:",
-    a: [
-      "Improvisación",
-      "Planificación, redacción y revisión",
-      "Lenguaje informal",
-      "Ausencia de estructura"
-    ],
-    correct: 1
-  },
-  {
-    q: "La correcta gestión documental contribuye a:",
-    a: [
-      "Desorganización",
-      "Eficiencia y calidad administrativa",
-      "Pérdida de información",
-      "Ambigüedad"
-    ],
-    correct: 1
-  }
+// =========================
+// FASE 5 — Globalizadora (contenido propio: soportes, normalización, digital, gestión documental) + repaso integrado
+// =========================
+window.phase5Bank = [
+  // Contenido específico (11)
+  { q: "La normalización de impresos y documentos busca principalmente:", options: ["Que cada persona use su propio formato","Unificar criterios para facilitar comprensión y tramitación","Eliminar la estructura","Aumentar la extensión del texto"], answerIndex: 1 },
+  { q: "Una ventaja de la normalización documental es:", options: ["Incrementar confusión","Facilitar archivo, búsqueda y tratamiento de documentos","Evitar trazabilidad","Eliminar revisiones"], answerIndex: 1 },
+  { q: "Para el envío formal, un formato recomendable es:", options: ["PDF","Imagen sin texto","Archivo sin nombre","Documento sin estructura"], answerIndex: 0 },
+  { q: "Una buena práctica de gestión documental es:", options: ["Guardar todo en una sola carpeta","Usar estructura de carpetas lógica y coherente","No usar nombres de archivo","Evitar fechas"], answerIndex: 1 },
+  { q: "El control de versiones consiste en:", options: ["Eliminar documentos antiguos siempre","Registrar cambios y mantener histórico","Cambiar nombres sin criterio","Guardar copias sin identificar"], answerIndex: 1 },
+  { q: "Un criterio útil para nombrar archivos es incluir:", options: ["Solo emojis","Fecha + asunto + versión (si procede)","Solo nombre del alumno/a","Nombre aleatorio"], answerIndex: 1 },
+  { q: "Los metadatos permiten:", options: ["Ocultar información","Identificar información clave (fecha, asunto, responsable…)","Eliminar trazabilidad","Sustituir la firma"], answerIndex: 1 },
+  { q: "Una medida importante de seguridad documental digital es:", options: ["No hacer copias de seguridad","Controlar accesos y permisos según roles","Compartir enlaces sin restricción","Guardar contraseñas en el nombre del archivo"], answerIndex: 1 },
+  { q: "El procesamiento informático de documentos implica:", options: ["Ignorar formatos","Crear, editar, almacenar y recuperar documentos con herramientas digitales","Evitar sistemas de archivo","No aplicar normas de estilo"], answerIndex: 1 },
+  { q: "La trazabilidad documental se refiere a:", options: ["No poder seguir el recorrido del documento","Poder seguir el ciclo del documento (creación, envío, registro, archivo)","Eliminar registros","Guardar sin orden"], answerIndex: 1 },
+  { q: "Un error habitual en gestión documental es:", options: ["Hacer copias de seguridad","No controlar versiones y duplicar archivos sin criterio","Clasificar por carpetas","Usar nombres descriptivos"], answerIndex: 1 },
+
+  // Repaso integrador (4)
+  { q: "Para una comunicación escrita eficaz (repaso) es recomendable:", options: ["Planificar, redactar y revisar","Escribir sin revisar","Evitar estructura","Usar lenguaje ambiguo"], answerIndex: 0 },
+  { q: "En documentos externos (repaso), es clave:", options: ["Omitir destinatario","Identificar destinatario y asunto claramente","Evitar firma","No incluir fecha nunca"], answerIndex: 1 },
+  { q: "En comunicación con la Administración (repaso), conviene:", options: ["Redactar solicitud concreta y objetiva","Usar tono informal","Evitar identificación","Eliminar apartados"], answerIndex: 0 },
+  { q: "En comunicación interna (repaso), es importante:", options: ["Indicar acción esperada, responsable y plazo cuando proceda","Poner solo una idea general","Incluir solo anexos","No usar asunto"], answerIndex: 0 }
 ];

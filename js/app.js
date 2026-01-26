@@ -29,8 +29,8 @@
   // ========= Estado / Progreso =========
   const KEY = "t4_escr_progress_v1";
   const ATTEMPTS_KEY = "t4_escr_attempts_v1";
-  const QUIZ_SHUFFLES_KEY = "t4_escr_quiz_shuffles_v1";
-  const QUIZ_PICK_KEY = "t4_escr_quiz_pick_v1";
+  // En este tema: barajado real (preguntas + opciones) en cada intento,
+  // como en el Tema 3. No persistimos selección/orden ni barajados.
   const ACT_KEY = "t4_escr_phase5_activities_v1";
 
   const defaultState = {
@@ -86,48 +86,48 @@
     return a;
   }
 
-  // ========= Selección aleatoria de preguntas (15 por fase, estable) =========
-  const quizPick = (() => { try { return JSON.parse(localStorage.getItem(QUIZ_PICK_KEY) || "{}"); } catch { return {}; } })();
-  function savePick() { localStorage.setItem(QUIZ_PICK_KEY, JSON.stringify(quizPick)); }
-  function ensurePhasePick(phaseKey) {
-    const bank = bankMap[phaseKey];
-    if (!Array.isArray(bank) || bank.length === 0) return;
-    const n = Math.min(QUESTIONS_PER_PHASE, bank.length);
-    if (!quizPick[phaseKey] || quizPick[phaseKey].length !== n) {
-      const idxs = shuffleArray(bank.map((_, i) => i)).slice(0, n);
-      quizPick[phaseKey] = idxs;
-      savePick();
-    }
-  }
-  function getPhaseQuestions(phaseKey) {
+  // ========= Quiz por intento (Tema 3-style) =========
+  // - En cada intento: 15 preguntas aleatorias (sin persistencia)
+  // - Orden de preguntas aleatorio
+  // - Opciones A/B/C/D barajadas y se recalcula la correcta
+  const quizSession = Object.create(null);
+
+  function buildAttemptQuiz(phaseKey) {
     const bank = bankMap[phaseKey];
     if (!Array.isArray(bank) || bank.length === 0) return [];
-    ensurePhasePick(phaseKey);
-    return (quizPick[phaseKey] || []).map(i => ({ ...bank[i], __origIndex: i }));
+
+    const n = Math.min(QUESTIONS_PER_PHASE, bank.length);
+    const picked = shuffleArray(bank).slice(0, n);
+
+    const normalized = picked.map((item) => {
+      const idxs = shuffleArray([0, 1, 2, 3]);
+      const options = idxs.map(i => item.options[i]);
+      const answerIndex = idxs.indexOf(item.answerIndex);
+      return { q: item.q, options, answerIndex };
+    });
+
+    return shuffleArray(normalized);
   }
 
-  // ========= Shuffle de opciones (anti patrón) =========
-  const quizShuffles = (() => { try { return JSON.parse(localStorage.getItem(QUIZ_SHUFFLES_KEY) || "{}"); } catch { return {}; } })();
-  function saveShuffles() { localStorage.setItem(QUIZ_SHUFFLES_KEY, JSON.stringify(quizShuffles)); }
-  function ensurePhaseShuffles(phaseKey) {
-    const bank = bankMap[phaseKey];
-    if (!Array.isArray(bank) || bank.length === 0) return;
-    if (!quizShuffles[phaseKey] || quizShuffles[phaseKey].length !== bank.length) {
-      quizShuffles[phaseKey] = bank.map((item) => {
-        const idxs = shuffleArray(item.options.map((_, i) => i));
-        const shuffledOptions = idxs.map(i => item.options[i]);
-        const correctIndex = idxs.indexOf(item.answerIndex);
-        return { options: shuffledOptions, correctIndex };
-      });
-      saveShuffles();
+  function ensureAttemptQuiz(phaseKey) {
+    if (!quizSession[phaseKey] || !Array.isArray(quizSession[phaseKey].questions)) {
+      quizSession[phaseKey] = { questions: buildAttemptQuiz(phaseKey) };
     }
+  }
+
+  function resetAttemptQuiz(phaseKey) {
+    quizSession[phaseKey] = { questions: buildAttemptQuiz(phaseKey) };
+  }
+
+  function getAttemptQuestions(phaseKey) {
+    ensureAttemptQuiz(phaseKey);
+    return quizSession[phaseKey].questions || [];
   }
 
   // ========= Actividades Fase 5 =========
   const actState = (() => { try { return JSON.parse(localStorage.getItem(ACT_KEY) || "{}"); } catch { return {}; } })();
   function saveActs() { localStorage.setItem(ACT_KEY, JSON.stringify(actState)); }
-  // En Fase 5 hay 2 integradoras interactivas (a1 y a2)
-  function activitiesDone() { return actState.a1 === true && actState.a2 === true; }
+  function activitiesDone() { return actState.a1 === true && actState.a2 === true && actState.a3 === true; }
 
   // ========= UI =========
   function setBadge(id, text) {
@@ -231,22 +231,14 @@
     const mount = document.getElementById(mountId);
     if (!mount) return;
 
-    const questions = getPhaseQuestions(phaseKey);
+    const questions = getAttemptQuestions(phaseKey);
     if (!questions.length) {
       mount.innerHTML = `<p class="hint">⚠️ No hay preguntas cargadas para ${phaseKey}. Revisa js/data.js.</p>`;
       return;
     }
-
-    ensurePhaseShuffles(phaseKey);
-    const phaseShuffle = quizShuffles[phaseKey] || [];
-
     mount.innerHTML = questions.map((item, qi) => {
-      const orig = item.__origIndex ?? qi;
-      const shuffled = phaseShuffle?.[orig];
-      const optionsToUse = shuffled?.options || item.options;
-
       const name = `${phaseKey}_q${qi}`;
-      const opts = optionsToUse.map((opt, oi) => {
+      const opts = item.options.map((opt, oi) => {
         const id = `${name}_o${oi}`;
         return `
           <label for="${id}" style="display:block; margin:.35rem 0;">
@@ -266,18 +258,13 @@
   }
 
   function gradeQuiz(phaseKey) {
-    const questions = getPhaseQuestions(phaseKey);
+    const questions = getAttemptQuestions(phaseKey);
     if (!questions.length) return { ok: 0, total: 0, pct: 0 };
-
-    ensurePhaseShuffles(phaseKey);
-    const phaseShuffle = quizShuffles[phaseKey] || [];
 
     let ok = 0;
     questions.forEach((item, qi) => {
       const sel = document.querySelector(`input[name="${phaseKey}_q${qi}"]:checked`);
-      const orig = item.__origIndex ?? qi;
-      const correct = phaseShuffle?.[orig]?.correctIndex ?? item.answerIndex;
-      if (sel && Number(sel.value) === correct) ok++;
+      if (sel && Number(sel.value) === item.answerIndex) ok++;
     });
 
     const total = questions.length;
@@ -302,7 +289,7 @@
     return "home";
   }
 
-  function handleSubmit(phaseKey, resultId) {
+  function handleSubmit(phaseKey, mountId, resultId) {
     if (!canAttempt(phaseKey)) {
       setResult(resultId, `❌ Sin intentos disponibles. (Máximo ${MAX_ATTEMPTS})`);
       refreshUI();
@@ -326,6 +313,12 @@
       state.passed[phaseKey] = false;
       save();
       refreshUI();
+
+      // Si aún quedan intentos, prepara un nuevo intento con preguntas barajadas.
+      if (canAttempt(phaseKey)) {
+        resetAttemptQuiz(phaseKey);
+        renderQuiz(phaseKey, mountId);
+      }
     }
   }
 
@@ -338,19 +331,19 @@
 
   // Submit buttons
   const p1Submit = document.getElementById("p1SubmitQuiz");
-  if (p1Submit) p1Submit.addEventListener("click", () => handleSubmit("phase1", "p1QuizResult"));
+  if (p1Submit) p1Submit.addEventListener("click", () => handleSubmit("phase1", "p1Quiz", "p1QuizResult"));
 
   const p2Submit = document.getElementById("p2SubmitQuiz");
-  if (p2Submit) p2Submit.addEventListener("click", () => handleSubmit("phase2", "p2QuizResult"));
+  if (p2Submit) p2Submit.addEventListener("click", () => handleSubmit("phase2", "p2Quiz", "p2QuizResult"));
 
   const p3Submit = document.getElementById("p3SubmitQuiz");
-  if (p3Submit) p3Submit.addEventListener("click", () => handleSubmit("phase3", "p3QuizResult"));
+  if (p3Submit) p3Submit.addEventListener("click", () => handleSubmit("phase3", "p3Quiz", "p3QuizResult"));
 
   const p4Submit = document.getElementById("p4SubmitQuiz");
-  if (p4Submit) p4Submit.addEventListener("click", () => handleSubmit("phase4", "p4QuizResult"));
+  if (p4Submit) p4Submit.addEventListener("click", () => handleSubmit("phase4", "p4Quiz", "p4QuizResult"));
 
   const p5Submit = document.getElementById("p5SubmitQuiz");
-  if (p5Submit) p5Submit.addEventListener("click", () => handleSubmit("phase5", "p5QuizResult"));
+  if (p5Submit) p5Submit.addEventListener("click", () => handleSubmit("phase5", "p5Quiz", "p5QuizResult"));
 
   // ========= Verificación docente =========
   function setMsg(id, text) {
@@ -371,24 +364,8 @@
       else submit.disabled = !unlockedToday || !canAttempt(phaseKey);
     }
 
-    // En Fase 5, además de la corrección del test, se bloquean las actividades interactivas hasta validar el código.
-    if (phaseNum === 5) {
-      const enabled = unlockedToday;
-      document.querySelectorAll("#p5Act1 button, #p5Act2 select, #p5Act1Check, #p5Act2Check").forEach(el => {
-        if ("disabled" in el) el.disabled = !enabled;
-      });
-
-      if (lockMsg) {
-        if (!unlockedToday) lockMsg.textContent = "🔒 Actividades y test bloqueados. Entrega en EVAGD y valida el código del docente.";
-        else if (!activitiesDone()) lockMsg.textContent = "ℹ️ Completa las 2 actividades integradoras para habilitar el test final.";
-        else if (!canAttempt("phase5")) lockMsg.textContent = `❌ Sin intentos disponibles (máximo ${MAX_ATTEMPTS}).`;
-        else lockMsg.textContent = "";
-      }
-      return;
-    }
-
-    if (lockMsg) {
-      if (!unlockedToday) lockMsg.textContent = "🔒 Test bloqueado. Entrega en EVAGD y valida el código del docente para habilitar la corrección.";
+    if (lockMsg && phaseNum !== 5) {
+      if (!unlockedToday) lockMsg.textContent = "🔒 Test bloqueado. Introduce el código del docente para habilitar la corrección.";
       else if (!canAttempt(phaseKey)) lockMsg.textContent = `❌ Sin intentos disponibles (máximo ${MAX_ATTEMPTS}).`;
       else lockMsg.textContent = "";
     }
@@ -473,12 +450,11 @@
     const mount = document.getElementById("p5Act1");
     if (!mount) return;
 
-    // Integradora 1: estructura de un documento formal (modelo)
     const correctOrder = [
-      "Encabezado (datos y fecha)",
-      "Asunto / referencia",
-      "Cuerpo (exposición + solicitud)",
-      "Despedida + firma + anexos"
+      "Asunto claro",
+      "Saludo + contexto",
+      "Acción solicitada + plazo",
+      "Cierre + firma"
     ];
 
     if (!actState.act1Items) {
@@ -529,11 +505,10 @@
     const mount = document.getElementById("p5Act2");
     if (!mount) return;
 
-    // Integradora 2: conceptos de soportes/canales
     const pairs = [
-      ["Soporte físico", "Medio material (papel/impreso)"],
-      ["Soporte digital", "Archivo electrónico (PDF, DOCX, etc.)"],
-      ["Canal", "Vía por la que se transmite (correo, sede electrónica, mensajería, etc.)"]
+      ["Asunto", "Resume el objetivo del mensaje de forma específica"],
+      ["CC", "Incluye a personas que deben estar informadas"],
+      ["CCO", "Oculta destinatarios cuando es necesario"]
     ];
 
     if (!actState.act2) {
@@ -576,9 +551,59 @@
     }
   }
 
+  function mountAct3() {
+    const mount = document.getElementById("p5Act3");
+    if (!mount) return;
+
+    const q = {
+      text: "Vas a pedir documentación por correo. ¿Cuál es la mejor redacción?",
+      options: [
+        "Mándame lo que falta ya.",
+        "Por favor, ¿podría enviarnos la documentación pendiente antes del viernes para completar el expediente? Gracias.",
+        "Necesito papeles. Urgente!!!",
+        "Si no lo envía, no se tramita."
+      ],
+      correct: 1
+    };
+
+    if (actState.act3Sel === undefined) actState.act3Sel = null;
+
+    mount.innerHTML = `
+      <div style="margin:8px 0; padding:12px; border:1px solid rgba(255,255,255,.10); border-radius:14px; background: rgba(0,0,0,.14);">
+        <p style="margin:0 0 10px 0;"><strong>${q.text}</strong></p>
+        ${q.options.map((opt, i) => `
+          <label style="display:block; margin:.45rem 0;">
+            <input type="radio" name="p5act3" value="${i}" ${String(actState.act3Sel) === String(i) ? "checked" : ""}>
+            ${opt}
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+    mount.querySelectorAll('input[name="p5act3"]').forEach(r => {
+      r.addEventListener("change", () => {
+        actState.act3Sel = Number(r.value);
+        saveActs();
+        refreshUI();
+      });
+    });
+
+    const checkBtn = document.getElementById("p5Act3Check");
+    const msg = document.getElementById("p5Act3Msg");
+    if (checkBtn) {
+      checkBtn.addEventListener("click", () => {
+        const ok = Number(actState.act3Sel) === q.correct;
+        actState.a3 = ok;
+        saveActs();
+        if (msg) msg.textContent = ok ? "✅ Actividad 3 correcta." : "❌ No es la opción más profesional.";
+        refreshUI();
+      });
+    }
+  }
+
   mountAct1();
   mountAct2();
-
+  mountAct3();
 
   // ========= Arranque =========
   refreshUI();
